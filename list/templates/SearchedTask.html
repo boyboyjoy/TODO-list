@@ -4,19 +4,10 @@
 {% endblock title %}
 {% block content %}
 <body>
-<p><a href="{% url 'main-page' %}">back</a></p>
-{% for board,task_list in board_list %}
+<p><a href="{% url 'main-page' %}">back</a></p><br><br>
 {% for task in task_list %}
-    {% if user.is_staff %}
-    <p>Task: <a href="{% url 'detail_task' board.id task.id %}">{{ task.description }}
-        (from board: {{ board.title }}, creator={{ board.user_creator.name }})</a></p>
-    <p>Status: {{ task.task_status }}</p><br>
-    {% else %}
-    <p>Task: <a href="{% url 'detail_task' board.id task.id %}">{{ task.description }}
-        (from board: {{ board.title }})</a></p>
-    <p>Status: {{ task.task_status }}</p><br>
-    {% endif %}
-{% endfor %}
+<p><a href="{% url 'detail_task' task.parent_board.id task.id %}">Task {{ task.description }}
+    (from board={{ task.parent_board.title }})</a></p><br>
 {% endfor %}
 </body>
 {% endblock content %}

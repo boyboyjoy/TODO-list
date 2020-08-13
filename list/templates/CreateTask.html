@@ -1,11 +1,11 @@
 {% extends "Base.html"%}
 {% block title %}
-<h3 align="center">{{ title_page }}</h3>
+<h3 align="center">Create task</h3>
 {% endblock title %}
 {% block content %}
-<p><a href="{% url 'Board' pk %}">back</a></p>
-<body style="background: {{ color }}">
-<form action="{% url 'create_task' pk %}" method="post" enctype="multipart/form-data">
+<p><a href="{% url 'Board' board.id %}">back</a></p>
+<body style="background: {{ board.color }}">
+<form action="{% url 'create_task' board.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ create_task_form.as_p }}
     <label for="scheduled_deadline">Deadline</label>
@@ -13,10 +13,8 @@
     <input type="submit" value="Create">
 </form>
 {% if messages %}
-<ul class="messages">
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <p>{{ message }}</p>
     {% endfor %}
-</ul>
 {% endif %}
 {% endblock content %}}
