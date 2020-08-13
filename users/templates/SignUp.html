@@ -9,11 +9,9 @@
     <input type="submit" value="Sign Up">
 </form>
 {% if messages %}
-<ul class="messages">
     {% for message in messages %}
-    <li>{{ message }}</li>
+<p>{{ message }}</p>
     {% endfor %}
-</ul>
 {% endif %}
 <p><a href="{% url 'auth:login' %}">Login</a></p>
 {% endblock content %}
