@@ -7,7 +7,7 @@
 <p><a href="{% url 'Board' board.id %}">back</a></p><br>
 <p><a href="{% url 'edit_task' board.id task.id %}">Edit task</a></p><br>
 <p><a href="{% url 'add_tag' board.id task.id %}">Add tag</a></p><br><br><br>
-{% if task.task_status != 'COMPLETED' %}
+{% if task.task_status != 'CO' %}
 <p><a href="{% url 'complete_task' board.id task.id %}">Complete task</a></p><br>
 {% endif %}
 {% if messages %}

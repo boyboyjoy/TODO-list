@@ -37,8 +37,8 @@ def create_board(request):
             if not create_or_edit_board(request, None):
                 return redirect(reverse('create_board'))
         if request.method == 'GET':
-            return render(request, 'create_board.html', {'create_board_form':
-                                                        CreateBoardForm()})
+            return render(request, 'create_board.html', {
+                'create_board_form': CreateBoardForm()})
     return redirect('main-page')
 
 
@@ -84,9 +84,9 @@ def detail_task(request, task_pk, board_pk):
         board = get_object_or_404(Board, pk=board_pk)
         task = board.task_set.get(pk=task_pk)
         return render(request, 'detail_task.html', {'task': task,
-                                                   'board': board,
-                                                   'status': TaskStatus
-                                                   (task.task_status).label})
+                                                    'board': board,
+                                                    'status': TaskStatus
+                                                    (task.task_status).label})
     return redirect('main-page')
 
 
@@ -106,8 +106,8 @@ def edit_board(request, pk):
             return redirect(reverse('edit_board', kwargs={'pk': pk}))
         elif request.method == 'GET':
             return render(request, 'edit_board.html', {'board': board,
-                                                      'edit_board_form':
-                                                          CreateBoardForm()})
+                                                       'edit_board_form':
+                                                           CreateBoardForm()})
 
     return redirect('main-page')
 
@@ -170,10 +170,11 @@ def add_tag(request, board_pk, task_pk):
                 'board_pk': board_pk,
                 'task_pk': task_pk}))
         elif request.method == 'GET':
-            return render(request, 'add_tag.html', {'title_page': 'Add tag',
-                                                   'add_tag_form': AddTagForm(),
-                                                   'board': board,
-                                                   'task_pk': task_pk})
+            return render(request, 'add_tag.html', {
+                'title_page': 'Add tag',
+                'add_tag_form': AddTagForm(),
+                'board': board,
+                'task_pk': task_pk})
     return redirect('main-page')
 
 

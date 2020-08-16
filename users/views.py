@@ -53,5 +53,6 @@ def sign_up(request):
             user.save()
             return redirect(LOGIN_URL)
         for error in form.errors:
-            messages.add_message(request, messages.WARNING, form.errors[error])
+            messages.add_message(request, messages.WARNING,
+                                 form.errors[error])
         return redirect(SIGN_UP_URL)

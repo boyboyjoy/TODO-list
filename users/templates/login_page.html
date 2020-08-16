@@ -12,11 +12,9 @@
 </form>
 <p><a href="{% url 'auth:sign_up' %}">Sign up</a></p>
 {% if messages %}
-<ul class="messages">
     {% for message in messages %}
-    <li><p>{{ message }}</p></li>
+    <p>{{ message }}</p>
     {% endfor %}
-</ul>
 {% endif %}
 </body>
 {% endblock content %}
