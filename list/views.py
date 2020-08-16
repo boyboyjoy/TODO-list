@@ -17,7 +17,7 @@ from .services.model_handlers.board_query_handler import get_all_boards
 
 def board_list(request):
     if request.user.is_authenticated:
-        return render(request, 'BoardList.html', {
+        return render(request, 'board_list.html', {
             'board_list': get_all_boards(request.user)})
     return redirect(reverse('auth:login'))
 
@@ -27,7 +27,7 @@ def task_list(request, pk):
         board = get_object_or_404(Board, pk=pk)
         context = {'task_list': board.task_set.all(), 'board': board,
                    'create_task_form': CreateTaskForm()}
-        return render(request, 'TaskList.html', context)
+        return render(request, 'task_list.html', context)
     return redirect('main-page')
 
 
@@ -37,7 +37,7 @@ def create_board(request):
             if not create_or_edit_board(request, None):
                 return redirect(reverse('create_board'))
         if request.method == 'GET':
-            return render(request, 'CreateBoard.html', {'create_board_form':
+            return render(request, 'create_board.html', {'create_board_form':
                                                         CreateBoardForm()})
     return redirect('main-page')
 
@@ -52,7 +52,7 @@ def create_task(request, pk):
     if request.user.is_authenticated:
         board = get_object_or_404(Board, pk=pk)
         if request.method == 'GET':
-            return render(request, 'CreateTask.html',
+            return render(request, 'create_task.html',
                           {'create_task_form': CreateTaskForm(),
                            'board': board})
         elif request.method == 'POST':
@@ -71,7 +71,7 @@ def replace_task(request, board_pk, task_pk):
                                      'new_parent_board', None)))
             return redirect(reverse('Board', kwargs={'pk': board_pk}))
         elif request.method == 'GET':
-            return render(request, 'Replace_copy_task.html', {
+            return render(request, 'replace_task.html', {
                 'task_pk': task_pk, 'board': board,
                 'replace_task_form': ReplaceTaskForm(get_all_boards(
                     request.user)), 'board_list': get_all_boards(
@@ -83,7 +83,7 @@ def detail_task(request, task_pk, board_pk):
     if request.user.is_authenticated:
         board = get_object_or_404(Board, pk=board_pk)
         task = board.task_set.get(pk=task_pk)
-        return render(request, 'DetailTask.html', {'task': task,
+        return render(request, 'detail_task.html', {'task': task,
                                                    'board': board,
                                                    'status': TaskStatus
                                                    (task.task_status).label})
@@ -105,7 +105,7 @@ def edit_board(request, pk):
                 return redirect(reverse('Board', kwargs={'pk': pk}))
             return redirect(reverse('edit_board', kwargs={'pk': pk}))
         elif request.method == 'GET':
-            return render(request, 'EditBoard.html', {'board': board,
+            return render(request, 'edit_board.html', {'board': board,
                                                       'edit_board_form':
                                                           CreateBoardForm()})
 
@@ -124,7 +124,7 @@ def edit_task(request, board_pk, task_pk):
             return redirect(reverse('edit_task', kwargs={'board_pk': board_pk,
                                                          'task_pk': task_pk}))
         elif request.method == 'GET':
-            return render(request, 'EditTask.html', {
+            return render(request, 'edit_task.html', {
                 'edit_task_form': CreateTaskForm(), 'board': board,
                 'task_pk': task_pk})
     return redirect('main-page')
@@ -170,7 +170,7 @@ def add_tag(request, board_pk, task_pk):
                 'board_pk': board_pk,
                 'task_pk': task_pk}))
         elif request.method == 'GET':
-            return render(request, 'AddTag.html', {'title_page': 'Add tag',
+            return render(request, 'add_tag.html', {'title_page': 'Add tag',
                                                    'add_tag_form': AddTagForm(),
                                                    'board': board,
                                                    'task_pk': task_pk})
@@ -187,7 +187,7 @@ def search_task_by_tag(request, tag):
     for tag in tag_list:
         task_objects_list.append(tag.parent_task)
     task_objects_list = set(task_objects_list)
-    return render(request, 'SearchedTask.html', {
+    return render(request, 'search_task.html', {
         'task_list': task_objects_list, 'tag': tag})
 
 

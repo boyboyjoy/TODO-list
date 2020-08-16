@@ -22,7 +22,7 @@ class LoginSystem(TestCase):
     def test_get_login_page(self):
         response = self.client.get(reverse(LOGIN_URL))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'LoginPage.html')
+        self.assertTemplateUsed(response, 'login_page.html')
         self.assertIsInstance(response.context['form'], LoginForm)
 
     def test_login_user(self):
@@ -49,7 +49,7 @@ class SignUpSystem(TestCase):
     def test_get_sign_up_page(self):
         response = self.client.get(reverse(SIGN_UP_URL), follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'SignUp.html')
+        self.assertTemplateUsed(response, 'sign_up.html')
         self.assertIsInstance(response.context['form'], SignUpForm)
 
     def test_sign_up_user(self):

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import SignUpForm, FormLogin
+from .forms import SignUpForm, LoginForm
 from .models import User
 
 LOGIN_URL = 'auth:login'
@@ -13,7 +13,7 @@ def log_in(request):
         if request.user.is_authenticated:
             return redirect('main-page')
         else:
-            return render(request, 'LoginPage.html', {'form': FormLogin()})
+            return render(request, 'login_page.html', {'form': LoginForm()})
     elif request.method == 'POST':
         user = authenticate(email=request.POST.get('email', None),
                             password=request.POST.get('password', None))
@@ -39,7 +39,7 @@ def sign_up(request):
         if request.user.is_authenticated:
             return redirect('main-page')
         else:
-            return render(request, 'SignUp.html', {'form': SignUpForm()})
+            return render(request, 'sign_up.html', {'form': SignUpForm()})
     else:
         form = SignUpForm(request.POST)
         if form.is_valid():

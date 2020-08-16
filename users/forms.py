@@ -18,6 +18,6 @@ class SignUpForm(forms.Form):
         validate_password(self.cleaned_data['password'])
 
 
-class FormLogin(forms.Form):
+class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)

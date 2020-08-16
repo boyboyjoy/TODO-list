@@ -1,19 +1,20 @@
-{% extends "Base.html" %}
+{% extends "base.html" %}
 {% block title %}
 <h2 align="center">Login</h2>
 {% endblock title %}
 {% block content %}
 <body>
-<form action="{% url 'main-page' %}" method="post">
+<form action="{% url 'auth:login' %}" method="post">
     {% csrf_token %}
 {{ form.as_p }}
+    {% csrf_token %}
     <input type="submit" value="Login">
 </form>
-<p><a href="{% url 'sign_up' %}">Sign up</a></p>
+<p><a href="{% url 'auth:sign_up' %}">Sign up</a></p>
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li>{{ message }}</li>
+    <li><p>{{ message }}</p></li>
     {% endfor %}
 </ul>
 {% endif %}
