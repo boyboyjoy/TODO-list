@@ -7,9 +7,9 @@ class Tag(models.Model):
     parent_task = models.ForeignKey(Task, on_delete=models.CASCADE,
                                     default=None)
 
-    def __str__(self):
-        return self.text
-
     class Meta:
         db_table = 'Tag'
         app_label = 'list'
+
+    def __str__(self):
+        return self.text

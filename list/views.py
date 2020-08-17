@@ -7,18 +7,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from list.models import Board, Task, Tag
 from list.services.serializers.serialize_task import add_json_in_zip
-from list.services.model_handlers.task_object_handler import \
+from list.services.model_handlers.task_object import \
     replace_or_copy_task, create_or_edit_task
 from .forms import CreateTaskForm, CreateBoardForm, AddTagForm, ReplaceTaskForm
-from .models.task import TaskStatus
-from .services.model_handlers.board_object_handler import create_or_edit_board
-from .services.model_handlers.board_query_handler import get_all_boards
+from .models.choices import TaskStatus
+from .services.model_handlers.board_object import create_or_edit_board
 
 
 def board_list(request):
     if request.user.is_authenticated:
         return render(request, 'board_list.html', {
-            'board_list': get_all_boards(request.user)})
+            'board_list': Board.visible_objects.get(request.user)})
     return redirect(reverse('auth:login'))
 
 
@@ -72,10 +71,11 @@ def replace_task(request, board_pk, task_pk):
             return redirect(reverse('Board', kwargs={'pk': board_pk}))
         elif request.method == 'GET':
             return render(request, 'replace_task.html', {
-                'task_pk': task_pk, 'board': board,
-                'replace_task_form': ReplaceTaskForm(get_all_boards(
-                    request.user)), 'board_list': get_all_boards(
-                    request.user)})
+                'task_pk': task_pk,
+                'board': board,
+                'replace_task_form': ReplaceTaskForm(
+                    Board.visible_objects.get(request.user)),
+                'board_list': Board.visible_objects.get(request.user)})
     return redirect('main-page')
 
 
@@ -132,7 +132,7 @@ def edit_task(request, board_pk, task_pk):
 
 def get_json(request):
     if request.user.is_authenticated:
-        board_object_list = get_all_boards(request.user)
+        board_object_list = Board.visible_objects.get(request.user)
         if not board_object_list:
             messages.add_message(request, messages.INFO,
                                  "You have not board")

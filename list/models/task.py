@@ -1,12 +1,6 @@
 from django.db import models
 from list.models.board import Board
-
-
-class TaskStatus(models.TextChoices):
-    TODO = 'TO', 'TODO'
-    STARTED = 'ST', 'STARTED'
-    COMPLETED = 'CO', 'COMPLETED'
-    CANCELED = 'CA', 'CANCELED'
+from list.models.choices import TaskStatus
 
 
 class Task(models.Model):
@@ -19,9 +13,9 @@ class Task(models.Model):
     parent_board = models.ForeignKey(Board, on_delete=models.CASCADE,
                                      default=None)
 
-    def __str__(self):
-        return self.description
-
     class Meta:
         db_table = 'Task'
         app_label = 'list'
+
+    def __str__(self):
+        return self.description
