@@ -5,7 +5,8 @@
 {% block content %}
 <body style="background: {{ board.color }}">
 <p><a href="{% url 'Board' board.id %}">back</a></p>
-<form action="{% url 'edit_board' board.id %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'edit_board' board.id %}" method="post"
+      enctype="multipart/form-data">
     {% csrf_token %}
     {{ edit_board_form.as_p }}
     <input type="submit" value="Change">

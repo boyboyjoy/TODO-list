@@ -8,7 +8,8 @@
 <p><a href="{% url 'edit_task' board.id task.id %}">Edit task</a></p><br>
 <p><a href="{% url 'add_tag' board.id task.id %}">Add tag</a></p><br><br><br>
 {% if task.task_status != 'CO' %}
-<p><a href="{% url 'complete_task' board.id task.id %}">Complete task</a></p><br>
+<p><a href="{% url 'complete_task' board.id task.id %}">Complete task</a></p>
+<br>
 {% endif %}
 {% if messages %}
     {% for message in messages %}
@@ -22,7 +23,8 @@
 {% endif %}
 <p>Status: {{ status }}</p>
 {% if task.file %}
-<p><a href="{% url 'get_task_file' board.id task.id %}">File: {{ task.file }}</a></p>
+<p><a href="{% url 'get_task_file' board.id task.id %}">File: {{ task.file }}
+</a></p>
 {% endif %}
 <p>Board: {{ board.title }}</p>
 {% if task.tag_set.all %}
@@ -31,7 +33,8 @@
 {% endfor %}</p>
 {% endif %}
 <p></p><br><br><br>
-<p><a href="{% url 'replace_task' board.id task.id %}">replace/copy task</a></p><br><br>
+<p><a href="{% url 'replace_task' board.id task.id %}">replace/copy task
+</a></p><br><br>
 <p><a href="{% url 'delete_task' board.id task.id %}">delete task</a></p>
 </body>
 {% endblock content %}

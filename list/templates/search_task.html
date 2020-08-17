@@ -6,7 +6,8 @@
 <body>
 <p><a href="{% url 'main-page' %}">back</a></p><br><br>
 {% for task in task_list %}
-<p><a href="{% url 'detail_task' task.parent_board.id task.id %}">Task {{ task.description }}
+<p><a href="{% url 'detail_task' task.parent_board.id task.id %}">Task
+    {{ task.description }}
     (from board={{ task.parent_board.title }})</a></p><br>
 {% endfor %}
 </body>

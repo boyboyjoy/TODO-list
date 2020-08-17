@@ -5,11 +5,13 @@
 {% block content %}
 <p><a href="{% url 'Board' board.id %}">back</a></p>
 <body style="background: {{ board.color }}">
-<form action="{% url 'create_task' board.id %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'create_task' board.id %}" method="post"
+      enctype="multipart/form-data">
     {% csrf_token %}
     {{ create_task_form.as_p }}
     <label for="scheduled_deadline">Deadline</label>
-    <p><input name="scheduled_deadline" id="scheduled_deadline" type="date"></p>
+    <p><input name="scheduled_deadline" id="scheduled_deadline"
+              type="date"></p>
     <input type="submit" value="Create">
 </form>
 {% if messages %}

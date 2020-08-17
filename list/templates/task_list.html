@@ -10,7 +10,8 @@
 {% if task_list %}
 {% if board %}
 {% for task in task_list %}
-<p>Task: <a href="{% url 'detail_task' board.id task.id %}">{{ task.description }}</a></p><br>
+<p>Task: <a href="{% url 'detail_task' board.id task.id %}">
+    {{ task.description }}</a></p><br>
 {% endfor %}
 {% endif %}
 {% endif %}

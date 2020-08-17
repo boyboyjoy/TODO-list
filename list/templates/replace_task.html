@@ -5,7 +5,8 @@
 {% block content %}
 <body style="background: {{ board.color }}">
 <p><a href="{% url 'detail_task' board.id task_pk %}">back</a></p>
-<form method="post" action="{% url 'replace_task' board.id task_pk %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'replace_task' board.id task_pk %}"
+      enctype="multipart/form-data">
     {% csrf_token %}
     {{ replace_task_form.as_p }}
     <input type="submit" name="replace" value="replace">
