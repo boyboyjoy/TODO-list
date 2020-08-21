@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import SignUpForm, LoginForm
-from .models import User
+from .services.sign_up import create_user
 
 LOGIN_URL = 'auth:login'
 SIGN_UP_URL = 'auth:sign_up'
@@ -41,18 +41,7 @@ def sign_up(request):
         else:
             return render(request, 'sign_up.html', {'form': SignUpForm()})
     else:
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = User.objects.create_user(email=request.POST.get(
-                'email', None),
-                                            password=request.POST.get(
-                                                'password', None))
-            user.name = request.POST.get('username', None)
-            if request.POST.get('moderator', None):
-                user.is_moderator = True
-            user.save()
+        if create_user(request):
             return redirect(LOGIN_URL)
-        for error in form.errors:
-            messages.add_message(request, messages.INFO,
-                                 form.errors[error])
-        return redirect(SIGN_UP_URL)
+        else:
+            return redirect(SIGN_UP_URL)

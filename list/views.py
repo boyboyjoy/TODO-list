@@ -35,6 +35,8 @@ def create_board(request):
         if request.method == 'POST':
             if not create_or_edit_board(request, None):
                 return redirect(reverse('create_board'))
+            else:
+                return redirect('main-page')
         if request.method == 'GET':
             return render(request, 'create_board.html', {
                 'create_board_form': CreateBoardForm()})
@@ -57,7 +59,8 @@ def create_task(request, pk):
         elif request.method == 'POST':
             if create_or_edit_task(request, None, board):
                 return redirect(reverse('Board', kwargs={'pk': pk}))
-        return redirect(reverse('create_task', kwargs={'pk': pk}))
+            else:
+                return redirect(reverse('create_task', kwargs={'pk': pk}))
     return redirect(reverse('main-page'))
 
 
