@@ -7,7 +7,7 @@ h5py==2.10.0
 Keras==2.3.1
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
-numpy==1.18.1
+numpy==1.22.0
 psycopg2==2.8.5
 pytz==2020.1
 PyYAML==5.3
